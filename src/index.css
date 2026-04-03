@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-bg: #050a14;
+  --color-deep-surface: #0a1628;
+  --color-neon-blue: #00d4ff;
+  --color-neon-cyan: #38bdf8;
+  --color-neon-purple: #7c3aed;
+  --color-neon-pink: #c026d3;
+  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --font-display: "Orbitron", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --animate-gradient-shift: gradient-shift 8s ease infinite;
+  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(60px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-deep-bg);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+}
+
+/* Grain overlay */
+.grain-overlay::after {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-deep-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neon-blue);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+
+/* Glow utilities */
+.text-glow {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 0 40px rgba(124, 58, 237, 0.3);
+}
+
+.box-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15), 0 0 40px rgba(0, 212, 255, 0.05);
+}
+
+.box-glow-purple {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.15), 0 0 40px rgba(124, 58, 237, 0.05);
+}
+
+.liquid-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(34, 43, 58, 0.62);
+  backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 24px 64px rgba(0, 0, 0, 0.42),
+    0 0 34px rgba(0, 212, 255, 0.1);
+}
+
+.liquid-card::before {
+  content: none;
+}
+
+.liquid-subcard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(48, 57, 72, 0.52);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 12px 30px rgba(0, 0, 0, 0.24);
+}
+
+.liquid-subcard::before {
+  content: none;
+}
+
+/* Swup transition container */
+#swup {
+  position: relative;
+}
+
+/* Ink-like fullscreen transition */
+#ink-transition {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transform: scaleX(0);
+  transform-origin: right center;
+  visibility: hidden;
+  opacity: 1;
+  background: #0e1e3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+html.is-ink-enter #ink-transition {
+  visibility: visible;
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html.is-ink-leave #ink-transition {
+  visibility: visible;
+  transform-origin: right center;
+  transform: scaleX(0);
+  transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1);
+}
