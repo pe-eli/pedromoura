@@ -66,6 +66,7 @@ export function Hero() {
   const { locale, text } = useLanguage();
   const roles = text.hero.roles;
   const typedText = useTypewriter(roles);
+  const portfolioHref = `${import.meta.env.BASE_URL}portfolio.html`;
 
   return (
     <section
@@ -166,7 +167,7 @@ export function Hero() {
             variants={itemVariants}
           >
             <motion.a
-              href="/portfolio.html"
+              href={portfolioHref}
               data-swup-link
               className="group relative overflow-hidden rounded-full bg-neon-blue px-8 py-4 font-display text-sm font-semibold tracking-widest text-deep-bg"
               whileHover={{ scale: 1.05 }}
