@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedro Lucas Vieira de Moura — Frontend Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: #2a2a2a;
+    --accent: #c8f135;
+    --accent2: #7effd4;
+    --text: #f0f0f0;
+    --muted: #888;
+    --muted2: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+    margin-bottom: 48px;
+  }
+
+  .name {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--text);
+  }
+
+  .name span {
+    color: var(--accent);
+  }
+
+  .title-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  .contact-block {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-block a, .contact-block span {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    display: block;
+    transition: color .2s;
+  }
+
+  .contact-block a:hover { color: var(--accent); }
+
+  .contact-block .open-badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    background: rgba(200, 241, 53, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(200, 241, 53, 0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  /* SUMMARY */
+  .summary {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 48px;
+    font-size: 14.5px;
+    color: #ccc;
+    line-height: 1.8;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROJECTS GRID */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 24px;
+    position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    border-color: var(--accent2);
+    background: linear-gradient(135deg, #161616 0%, #1a1f1a 100%);
+  }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-card.featured .project-name {
+    font-size: 18px;
+    color: var(--accent2);
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .project-impact {
+    font-size: 12.5px;
+    color: #aaa;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .stack-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: .5px;
+  }
+
+  .pill.accent { background: rgba(200,241,53,.08); color: var(--accent); border-color: rgba(200,241,53,.2); }
+  .pill.accent2 { background: rgba(126,255,212,.08); color: var(--accent2); border-color: rgba(126,255,212,.2); }
+
+  .project-link {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 11px;
+    color: var(--muted2);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 1px;
+    transition: color .2s;
+  }
+
+  .project-link:hover { color: var(--accent); }
+
+  /* EXPERIENCE */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta { }
+
+  .exp-period {
+    font-size: 12px;
+    color: var(--muted2);
+    line-height: 1.5;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .exp-company {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .exp-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .exp-desc {
+    font-size: 13.5px;
+    color: #999;
+    line-height: 1.7;
+  }
+
+  .exp-result {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(200,241,53,.05);
+    border-left: 2px solid var(--accent);
+    font-size: 12.5px;
+    color: #bbb;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .skill-group { }
+
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 10px;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .skill-item {
+    font-size: 13px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-item::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* EDUCATION & EXTRAS */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .edu-item {
+    padding: 16px 20px;
+    background: var(--surface);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .edu-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .edu-sub {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .edu-note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* DIFFERENTIAL */
+  .diff-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+
+  .diff-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+
+  .diff-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--muted2);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 1px;
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .page { padding: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="name">Pedro <span>Moura</span></div>
+      <div class="title-tag">Frontend Developer</div>
+    </div>
+    <div class="contact-block">
+      <span>Formiga, MG — Brasil</span>
+      <a href="tel:+5524981522593">(24) 98152-2593</a>
+      <a href="mailto:p.mouuraa05@gmail.com">p.mouuraa05@gmail.com</a>
+      <a href="https://linkedin.com/in/pedro-moura-plse" target="_blank">linkedin.com/in/pedro-moura-plse</a>
+      <a href="https://github.com/pe-eli" target="_blank">github.com/pe-eli</a>
+      <span class="open-badge">✦ Aberto a oportunidades</span>
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    Desenvolvedor Frontend com 3 anos de experiência em <strong style="color:#f0f0f0">React e TypeScript</strong>, com projetos reais publicados em produção — incluindo plataformas SaaS, e-commerces com integração de pagamentos, dashboard Web3 com IA e sites institucionais. Experiência adicional em ambiente industrial de alta exigência (CSN), onde desenvolvi soluções digitais que substituíram processos manuais e aumentaram a eficiência operacional. Formação técnica em Mecatrônica que orienta uma <strong style="color:#f0f0f0">visão sistêmica</strong> no desenvolvimento — conectando hardware, dados e interfaces. Inglês fluente, com toda documentação técnica consumida no idioma original.
+  </div>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-label">Projetos em Produção</div>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <a class="project-link" href="https://trendwallet.vercel.app" target="_blank">↗ trendwallet.vercel.app</a>
+        <div class="project-name">TrendWallet — Crypto AI Dashboard</div>
+        <div class="project-desc">Dashboard Web3 completo com conexão via MetaMask, exibição de portfólio em tempo real, histórico de preços e geração de insights de IA via DeepSeek API.</div>
+        <div class="project-impact">Integra Web3 (Ethers.js), dados de mercado (CoinGecko), IA generativa e visualizações interativas em uma única aplicação full-stack.</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill accent2">Ethers.js</span>
+          <span class="pill accent2">DeepSeek AI</span>
+          <span class="pill">Zustand</span>
+          <span class="pill">React Query</span>
+          <span class="pill">Recharts</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">CoinGecko API</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a class="project-link" href="https://prottoset.vercel.app" target="_blank">↗ prottoset.vercel.app</a>
+        <div class="project-name">Prottoset — SaaS de Prospecção</div>
+        <div class="project-desc">Plataforma SaaS para gestão de leads, disparo automatizado de WhatsApp via Evolution API e geração de propostas comerciais com 3 níveis de plano.</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill">Next.js</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Tailwind</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a class="project-link" href="https://tatflow.vercel.app" target="_blank">↗ tatflow.vercel.app</a>
+        <div class="project-name">TatFlow — SaaS para Tatuadores</div>
+        <div class="project-desc">Plataforma SaaS com fluxo completo de solicitação → orçamento → agendamento, painel do tatuador, calendário interativo e integração com Mercado Pago.</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill">Next.js</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Mercado Pago</span>
+          <span class="pill">JWT Auth</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a class="project-link" href="https://dimouras.com.br" target="_blank">↗ dimouras.com.br</a>
+        <div class="project-name">Di Mouras — E-commerce</div>
+        <div class="project-desc">Catálogo digital com carrinho, montagem de combos, checkout e integração com Mercado Pago (Pix com QR Code dinâmico, cartão e webhooks de confirmação).</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Mercado Pago</span>
+          <span class="pill">Context API</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a class="project-link" href="https://prottocode.com.br" target="_blank">↗ prottocode.com.br</a>
+        <div class="project-name">Prottocode — Site Institucional</div>
+        <div class="project-desc">Landing page institucional com Lighthouse Score 95+ em performance, SEO e acessibilidade. Prototipada no Figma e convertida para código limpo e semântico.</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill">Next.js</span>
+          <span class="pill">Tailwind</span>
+          <span class="pill">EmailJS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a class="project-link" href="https://melsol-demo.vercel.app" target="_blank">↗ melsol-demo.vercel.app</a>
+        <div class="project-name">MelSol — E-commerce de Moda</div>
+        <div class="project-desc">Loja virtual completa com vitrine, cupons de desconto, painel administrativo, cálculo de frete e checkout integrado com Mercado Pago.</div>
+        <div class="stack-pills">
+          <span class="pill accent">React</span>
+          <span class="pill">Next.js</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Zustand</span>
+          <span class="pill">Tailwind</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="section-label">Experiência Profissional</div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Fev 2024<br>Abr 2025</div>
+        <div class="exp-company">CSN</div>
+      </div>
+      <div>
+        <div class="exp-title">Técnico de Processos</div>
+        <div class="exp-desc">Desenvolvimento e gerenciamento de relatórios de recondicionamento, condução de auditorias operacionais nos pátios industriais e coordenação de atividades de melhoria em segurança, meio ambiente e manutenção. Suporte ao monitoramento de indicadores operacionais e organização de dados de processos com automação via Excel.</div>
+        <div class="exp-result">✦ Atuação em uma das maiores siderúrgicas do Brasil, com foco em eficiência operacional e rastreabilidade de dados.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Ago 2023<br>Jan 2024</div>
+        <div class="exp-company">CSN — Estágio</div>
+      </div>
+      <div>
+        <div class="exp-title">Desenvolvedor Frontend (Estágio)</div>
+        <div class="exp-desc">Desenvolvi do zero uma solução web para rastreamento em tempo real de placas de aço no pátio industrial, substituindo um processo 100% manual. A interface foi implementada com acesso direto no próprio pátio, eliminando deslocamentos desnecessários à sala administrativa.</div>
+        <div class="exp-result">✦ Sistema implantado e utilizado em produção, aumentando a eficiência operacional e reduzindo etapas do processo em tempo real.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-label">Stack Técnica</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-list">
+          <div class="skill-item">React + TypeScript</div>
+          <div class="skill-item">Next.js (SSG / SSR)</div>
+          <div class="skill-item">Tailwind CSS</div>
+          <div class="skill-item">Zustand / Context API</div>
+          <div class="skill-item">React Query</div>
+          <div class="skill-item">HTML5 + CSS3</div>
+          <div class="skill-item">Recharts / D3</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Backend & Dados</div>
+        <div class="skill-list">
+          <div class="skill-item">Node.js + Express</div>
+          <div class="skill-item">PostgreSQL</div>
+          <div class="skill-item">API REST</div>
+          <div class="skill-item">JWT Auth</div>
+          <div class="skill-item">Webhooks</div>
+          <div class="skill-item">Mercado Pago API</div>
+          <div class="skill-item">Python / Streamlit</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Ferramentas & Outros</div>
+        <div class="skill-list">
+          <div class="skill-item">Git + GitHub</div>
+          <div class="skill-item">Figma</div>
+          <div class="skill-item">Ethers.js / Web3</div>
+          <div class="skill-item">DeepSeek / IA APIs</div>
+          <div class="skill-item">Vite</div>
+          <div class="skill-item">Vercel / Deploy</div>
+          <div class="skill-item">Microsoft Office</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION & DIFFERENTIAL -->
+  <section class="section">
+    <div class="section-label">Formação & Diferenciais</div>
+    <div class="two-col">
+      <div>
+        <div class="edu-item" style="margin-bottom:12px">
+          <div class="edu-title">Técnico em Mecatrônica</div>
+          <div class="edu-sub">Escola Técnica Pandiá Calógeras — Dez 2023</div>
+          <div class="edu-note">Base que orienta uma visão sistêmica no desenvolvimento — conectando hardware, eletrônica, dados e interfaces em soluções completas.</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">Inglês Fluente</div>
+          <div class="edu-sub">Aprendizado particular — uso profissional ativo</div>
+          <div class="edu-note">Toda documentação técnica consumida em inglês. Comunicação escrita com ferramentas, fóruns e comunidades internacionais de desenvolvimento.</div>
+        </div>
+      </div>
+      <div>
+        <div class="diff-card" style="margin-bottom:12px">
+          <div class="diff-title">Sistema com Visão Computacional</div>
+          <div class="diff-desc">Coordenei equipe de 4 pessoas no desenvolvimento de uma esteira seletora inteligente com identificação de objetos por cor via câmera. Integrou Python, eletrônica e registro automático de dados — projeto acadêmico com viabilidade econômica validada.</div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-title">Empreendedor</div>
+          <div class="diff-desc">Fundador da Prottocode, empresa de software com projetos em produção e clientes reais. Experiência prática em ciclo completo: levantamento de requisitos, design, desenvolvimento, deploy e manutenção.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://prottocode.com.br" target="_blank">prottocode.com.br</a>
+      <a href="https://github.com/pe-eli" target="_blank">github.com/pe-eli</a>
+      <a href="https://linkedin.com/in/pedro-moura-plse" target="_blank">linkedin.com/in/pedro-moura-plse</a>
+    </div>
+    <div class="footer-note">Atualizado em Abril de 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
